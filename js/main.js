@@ -20,35 +20,49 @@ tinhTien.addEventListener("click", () => {
 
     switch (loaiXe) {
         case "Grab Car":
-            if (soKm.value <= 1) {
-                thanhTien = (soKm.value * 8000 ) + (tgCho.value * 2000);
-            } else if (soKm.value > 1 && soKm.value <= 19) {
-                thanhTien = (1 * 8000) + (soKm.value - 1) * 7500 + tgCho.value * 2000;
-            } else if (soKm.value > 19) {
-                thanhTien = (1 * 8000) + (20 * 7500) + ((soKm.value - 20) * 7000) + (tgCho.value * 2000);
-            }
+            thanhTien = TinhTien(8000, 7500, 7000) + TinhTienThoiGianCho(tgCho.value, 2000);
             break;
         case "Grab SUV":
-            if (soKm.value <= 1) {
-                thanhTien = (soKm.value * 9000 ) + (tgCho.value * 3000);
-            } else if (soKm.value > 1 && soKm.value <= 19) {
-                thanhTien = (1 * 9000) + (soKm.value - 1) * 8500 + tgCho.value * 3000;
-            } else if (soKm.value > 19) {
-                thanhTien = (1 * 9000) + (20 * 8500) + ((soKm.value - 20) * 8000) + (tgCho.value * 3000);
-            }
+            thanhTien = TinhTien(9000, 8500, 8000) + TinhTienThoiGianCho(tgCho.value, 3000);
             break;
         case "Grab Black":
-            if (soKm.value <= 1) {
-                thanhTien = (soKm.value * 10000)  +( tgCho.value * 3500);
-            } else if (soKm.value > 1 && soKm.value <= 19) {
-                thanhTien = (1 * 10000) + (soKm.value - 1) * 9500 + tgCho.value * 3500;
-            } else if (soKm.value > 19) {
-                thanhTien = (1 * 10000) + (20 * 9500) + ((soKm.value - 20) * 9000) + (tgCho.value * 3500);
-            }
+            thanhTien = TinhTien(10000, 9500, 9000) + TinhTienThoiGianCho(tgCho.value, 3500);
             break;
     }
+  
     xuatTien.innerHTML = thanhTien;
 });
+
+
+function TinhTien(km1, km2, km3){
+    let thanhTien = 0;
+    if(soKm.value < 1) {
+        thanhTien = 0
+    } else if (soKm.value == 1){
+        thanhTien = km1;
+    }else if(soKm.value > 1 && soKm.value <= 19){
+        thanhTien = km1 + (soKm.value - 1) * km2;
+    }else if (soKm.value > 19){
+        thanhTien = km1 + (km2 * 18) + (soKm.value - 19) * km3;
+    }
+
+    return thanhTien;
+}
+
+
+
+function TinhTienThoiGianCho(NhapTGCho, TienTGCho) {
+    let TongTienTGCho = 0;
+    if(NhapTGCho < 0){
+        TongTienTGCho = 0
+    }else{
+        TongTienTGCho = Math.floor(NhapTGCho / 3) *TienTGCho;
+    }
+    console.log(TongTienTGCho);
+    return TongTienTGCho;
+    
+}
+
 
 function LayLoaiXe() {
     let ketQua = "";
@@ -62,3 +76,11 @@ function LayLoaiXe() {
     }
     return ketQua;
 }
+
+
+
+
+
+
+
+
